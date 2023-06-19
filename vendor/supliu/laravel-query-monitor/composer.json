@@ -1,0 +1,40 @@
+{
+    "name": "supliu/laravel-query-monitor",
+    "type": "library",
+    "description": "Laravel Query Monitor",
+    "keywords": [
+        "laravel", "eloquent", "query", "sql", "monitor"
+    ],
+    "authors": [
+        {
+            "name": "Jansen Felipe",
+            "email": "jansen.felipe@gmail.com"
+        }
+    ],
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Supliu\\LaravelQueryMonitor\\": "src/"
+        }
+    },
+    "require": {
+        "laravel/framework": "^5.6 || ^6.0 || ^7.0 || ^8.0",
+        "php": "^7.3",
+        "react/socket": "^1.4"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        },
+        "laravel": {
+            "providers": [
+                "Supliu\\LaravelQueryMonitor\\ServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "require-dev": {
+        "phpunit/phpunit": "^9.2@dev",
+        "orchestra/testbench": "^3.6 || ^4.0 || ^5.0 || ^6.0"
+    }
+}
