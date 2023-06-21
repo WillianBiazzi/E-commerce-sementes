@@ -233,7 +233,7 @@ CREATE TABLE Produtos (
     fk_Estoque_IdEstoque INT
 );
 
-CREATE TABLE Pedidos (
+CREATE TABLE Pedido (
     IdPedido INT PRIMARY KEY,
     DataPedido DATE,
     fk_Clientes_IdCliente INT
@@ -255,7 +255,7 @@ ALTER TABLE Produtos ADD CONSTRAINT FK_Produtos_2
     REFERENCES Estoque (IdEstoque)
     ON DELETE RESTRICT;
 
-ALTER TABLE Pedidos ADD CONSTRAINT FK_Pedidos_2
+ALTER TABLE Pedido ADD CONSTRAINT FK_Pedido_2
     FOREIGN KEY (fk_Clientes_IdCliente)
     REFERENCES Clientes (IdCliente)
     ON DELETE CASCADE;
@@ -374,19 +374,19 @@ INSERT INTO Produtos (IdProduto, NomeProduto, Descricao, Preco, fk_Estoque_IdEst
 VALUES(12, 'AG 7088', ' MILHO', 18.00, 12);
 
 
-INSERT INTO Pedidos (IdPedido, DataPedido, fk_Clientes_IdCliente)
+INSERT INTO Pedido (IdPedido, DataPedido, fk_Clientes_IdCliente)
 VALUES (1, '2023-06-01', 1);
 
-INSERT INTO Pedidos (IdPedido, DataPedido, fk_Clientes_IdCliente)
+INSERT INTO Pedido (IdPedido, DataPedido, fk_Clientes_IdCliente)
 VALUES (2, '2023-06-02', 2);
 
-INSERT INTO Pedidos (IdPedido, DataPedido, fk_Clientes_IdCliente)
+INSERT INTO Pedido (IdPedido, DataPedido, fk_Clientes_IdCliente)
 VALUES (3, '2023-06-03', 3);
 
-INSERT INTO Pedidos (IdPedido, DataPedido, fk_Clientes_IdCliente)
+INSERT INTO Pedido (IdPedido, DataPedido, fk_Clientes_IdCliente)
 VALUES (4, '2023-06-04', 4);
 
-INSERT INTO Pedidos (IdPedido, DataPedido, fk_Clientes_IdCliente)
+INSERT INTO Pedido (IdPedido, DataPedido, fk_Clientes_IdCliente)
 VALUES (5, '2023-06-05', 5);
 
 

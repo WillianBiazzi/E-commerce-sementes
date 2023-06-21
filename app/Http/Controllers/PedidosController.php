@@ -32,7 +32,7 @@ class PedidosController extends Controller{
         $pedido = Pedido::create([
             'DataPedido' => $request->input('dataPedido'),
             'fk_Clientes_IdCliente' => $request->input('fk_clientes_IdCliente')
-        ]); 
+        ]);
 
         $produtos = $request->produtos;
 
