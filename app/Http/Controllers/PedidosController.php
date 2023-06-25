@@ -28,23 +28,26 @@ class PedidosController extends Controller{
         return view('pedidos.create');
     }
 
-    public function store(Request $request) {
-        $pedido = Pedido::create([
-            'DataPedido' => $request->input('dataPedido'),
-            'fk_Clientes_IdCliente' => $request->input('fk_clientes_IdCliente')
+    public function store(Request $request)
+    {
+        $request->validate([
+            'cliente_id' => 'required',
+            'produto_id' => 'required',
+            'quantidade' => 'required|numeric|min:1',
         ]);
 
-        $produtos = $request->produtos;
+        $produto = Produto::find($request->input('produto_id'));
+        $quantidade = $request->input('quantidade');
+        $valorTotal = $produto->valor * $quantidade;
 
-        foreach ($produtos as $p => $produto) {
-            PedidoProduto::create([
-                'QtdPedido' => $produto['qtdPedido'],
-                'fk_Produtos_IdProduto' => $produto['idProduto'],
-                'fk_Pedidos_IdPedido' => $pedido->id
-            ]);
-        }
+        $pedido = new Pedido();
+        $pedido->cliente_id = $request->input('cliente_id');
+        $pedido->produto_id = $request->input('produto_id');
+        $pedido->quantidade = $quantidade;
+        $pedido->valor_total = $valorTotal;
+        $pedido->save();
 
-        return redirect()->route('pedidos');
+        return redirect()->route('pedidos.index')->with('success', 'Pedido criado com sucesso!');
     }
 
     public function show($id){

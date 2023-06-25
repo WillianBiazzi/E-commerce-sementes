@@ -8,7 +8,7 @@ class Pedido extends Model
 {
     protected $table = "Pedidos";
     protected $primaryKey = 'IdPedido'; // Definir a chave primária da tabela
-    protected $fillable = ['IdPedido', 'DataPedido', 'fk_Clientes_IdCliente'];
+    protected $fillable = ['IdPedido', 'DataPedido', 'fk_Clientes_IdCliente', 'valor_total']; // Adicionei o campo 'valor_total' na lista de atributos preenchíveis
 
     public function cliente()
     {

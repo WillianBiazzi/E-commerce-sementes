@@ -3,12 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Estoque;
 
 class Produto extends Model
 {
+    protected $fillable = ['nomeProduto', 'descricao', 'preco', 'fk_Estoque_IdEstoque'];
     protected $primaryKey = 'IdProduto';
-    // restante do código do modelo
-
     protected $table = 'Produtos';
 
     public function estoque()
@@ -22,3 +22,4 @@ class Produto extends Model
                     ->withPivot('QtdPedido');
     }
 }
+

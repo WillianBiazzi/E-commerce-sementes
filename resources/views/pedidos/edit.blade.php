@@ -1,28 +1,25 @@
 @extends('layouts.default')
 
 @section('content')
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Editar Pedido</h3>
+            </div>
+        </div>
+    </div>
 
-<div class="container-fluid">
-    <h3>Editar Pedido</h3>
-</div>
-<form action="{{ route('pedidos.update', ['pedido' => $pedido->id]) }}" method="POST">
-    @csrf
-    @method('PUT')
-
-<div class="form-group">
-    <label for="valor_total">Valor Total:</label>
-    <input type="text" name="valor_total" class="form-control" value="{{ $pedido->valor_total }}">
-</div>
-
-<div class="form-group">
-    <label for="produtos">Produtos:</label>
-    <select name="produtos[]" class="form-control" multiple>
-        @foreach ($produtos as $produto)
-        <option value="{{ $produto->idProduto }}" @if (in_array($produto->idProduto, $pedido->produtos->pluck('idProduto')->toArray())) selected @endif>{{ $produto->descricaoProduto }}</option>
-        @endforeach
-    </select>
-</div>
-
-<button type="submit" class="btn btn-primary">Salvar</button>
-</form>
+    {!! Form::model($pedido, ['route' => ['pedidos.update', $pedido->id], 'method' => 'PUT']) !!}
+        <div class="form-group">
+            {!! Form::label('data_pedido', 'Data do Pedido:') !!}
+            {!! Form::date('data_pedido', null, ['class' => 'form-control', 'required']) !!}
+        </div>
+        <div class="form-group">
+            {!! Form::label('produtos', 'Produtos:') !!}
+            {!! Form::select('produtos[]', $produtos, $pedido->produtos->pluck('id')->toArray(), ['class' => 'form-control', 'multiple', 'required']) !!}
+        </div>
+        <div class="form-group">
+            {!! Form::submit('Atualizar Pedido', ['class' => 'btn btn-primary']) !!}
+        </div>
+    {!! Form::close() !!}
 @stop

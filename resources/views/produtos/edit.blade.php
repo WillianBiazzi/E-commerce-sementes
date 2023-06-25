@@ -1,7 +1,7 @@
 @extends('adminlte::page')
 
 @section('content')
-    <h3>Editando Ator: {{ $ator->nome }}</h3>
+    <h3>Editando Produto: {{ $produto->NomeProduto }}</h3>
 
     @if($errors->any())
         <ul class="alert alert-danger">
@@ -11,28 +11,30 @@
         </ul>
     @endif
 
-    {!! Form::open(['route' => ["atores.update", 'id' => $ator->id], 'method' => 'put'])  !!}
-        <div class="form-group">
-            {!! Form::label('nome', 'Nome:') !!}
-            {!! Form::text('nome', $ator->nome, ['class' => 'form-control', 'required']) !!}
-        </div>
-        <div class="form-group">
-            {!! Form::label('nacionalidade_id', 'Nacionalidade:') !!}
-            {!! Form::select('nacionalidade_id',
-                                    \App\Nacionalidade::orderBy('descricao')->pluck('descricao', 'id')->toArray(),
-                                    $ator->nacionalidade_id, ['class' => 'form-control', 'required']) !!}
-        </div>
-        <div class="form-group">
-            {!! Form::label('dt_nascimento', 'Data de Nascimento:') !!}
-            {!! Form::date('dt_nascimento', $ator->dt_nascimento, ['class' => 'form-control', 'required']) !!}
-        </div>
-        <div class="form-group">
-            {!! Form::label('inicio_atividades', 'Início de Atividades:') !!}
-            {!! Form::date('inicio_atividades', $ator->inicio_atividades, ['class' => 'form-control', 'required']) !!}
-        </div>
-        <div class="form-group">
-            {!! Form::submit('Editar Ator', ['class' => 'btn btn-primary']) !!}
-            {!! Form::reset ('Limpar',     ['class' => 'btn btn-default']) !!}
-        </div>
+    {!! Form::model($produto, ['route' => ['produtos.update', $produto->IdProduto], 'method' => 'put']) !!}
+@method('PUT')
+
+    <div class="form-group">
+        {!! Form::label('nomeProduto', 'Nome do Produto:') !!}
+        {!! Form::text('nomeProduto', $produto->NomeProduto, ['class' => 'form-control', 'required']) !!}
+    </div>
+    <div class="form-group">
+        {!! Form::label('descricao', 'Descrição:') !!}
+        {!! Form::text('descricao', $produto->Descricao, ['class' => 'form-control', 'required']) !!}
+    </div>
+    <div class="form-group">
+        {!! Form::label('preco', 'Preço:') !!}
+        {!! Form::number('preco', $produto->Preco, ['class' => 'form-control', 'required', 'step' => '0.01']) !!}
+    </div>
+    <div class="form-group">
+        {!! Form::label('fk_Estoque_idEstoque', 'ID do Estoque:') !!}
+        {!! Form::select('fk_Estoque_idEstoque', $estoques, $produto->fk_Estoque_IdEstoque, ['class' => 'form-control', 'required']) !!}
+    </div>
+    <div class="form-group">
+        {!! Form::submit('Editar Produto', ['class' => 'btn btn-primary']) !!}
+        {!! Form::reset('Limpar', ['class' => 'btn btn-default']) !!}
+    </div>
     {!! Form::close() !!}
-@stop
+
+    @stop
+

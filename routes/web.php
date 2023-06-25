@@ -1,4 +1,6 @@
-    <?php
+<?php
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
     Route::group(['middleware'=>'auth'], function () {
         Route::group(['prefix'=>'atores', 'where'=>['id'=>'[0-9]+']], function () {
@@ -34,7 +36,7 @@
             Route::put ('{id}/update',  ['as' => 'pedidos.update',   'uses' => 'PedidosController@update' ]);
         });
         Route::group(['prefix' => 'produtos', 'where' => ['idProduto' => '[0-9]+']], function () {
-            Route::any('',              ['as' => 'produtos',            'uses' => 'ProdutosController@index']);
+            Route::get('',              ['as' => 'produtos',            'uses' => 'ProdutosController@index']);
             Route::get('create',        ['as' => 'produtos.create',     'uses' => 'ProdutosController@create']);
             Route::post('store',        ['as' => 'produtos.store',      'uses' => 'ProdutosController@store']);
             Route::get('destroy',       ['as' => 'produtos.destroy',    'uses' => 'ProdutosController@destroy']);
@@ -59,6 +61,7 @@
             Route::get ('edit',         ['as' => 'clientes.edit',       'uses' => 'ClientesController@edit'   ]);
             Route::put ('{idCliente}/update',  ['as' => 'clientes.update',   'uses' => 'ClientesController@update' ]);
         });
+
     });
 Auth::routes();
 Route::view('/', 'welcome');

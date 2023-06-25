@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Nacionalidade;
 use App\Http\Requests\NacionalidadeRequest;
+use Illuminate\Support\Facades\Crypt;
 
 class NacionalidadesController extends Controller
 {
@@ -38,7 +39,7 @@ class NacionalidadesController extends Controller
 
     public function destroy(Request $request) {
         try {
-            Nacionalidade::find(\Crypt::decrypt($request->get('id')))->delete();
+            Nacionalidade::find(Crypt::decrypt($request->get('id')))->delete();
             $ret = array('status'=>200, 'msg'=>"null");
         } catch (\Illuminate\Database\QueryException $e) {
             $ret = array('status'=>500, 'msg'=>$e->getMessage());
@@ -51,7 +52,7 @@ class NacionalidadesController extends Controller
     }
 
     public function edit(Request $request) {
-        $nacionalidade = Nacionalidade::find(\Crypt::decrypt($request->get('id')));
+        $nacionalidade = Nacionalidade::find(Crypt::decrypt($request->get('id')));
         return view('nacionalidades.edit', compact('nacionalidade'));
     }
 

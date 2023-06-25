@@ -17,7 +17,7 @@ class ProdutoRequest extends FormRequest
             'nome' => 'required|max:30',
             'descricao' => 'required|max:50',
             'preco' => 'required|numeric',
-            'fk_estoque_id' => 'required|exists:estoque,IdEstoque',
+            'fk_estoque_idEstoque' => 'required|exists:estoque,IdEstoque',
         ];
     }
 }

@@ -12,6 +12,7 @@ use \App\Filme;
 use \App\Produto;
 use \App\Tipo;
 use \App\Pedido;
+use \App\Estoque; // Adicionado
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -34,6 +35,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $events->listen(BuildingMenu::class, function (BuildingMenu $event) {
             $event->menu->add('ATORES');
+            /*
             $event->menu->add([
                 'text'        => 'Atores',
                 'url'         => 'atores',
@@ -56,26 +58,27 @@ class AppServiceProvider extends ServiceProvider
                 'label_color' => 'danger',
             ]);
 
+            */
             $event->menu->add([
                 'text'        => 'Pedidos',
                 'url'         => 'pedidos',
                 'icon'        => 'fas fa-fw fa-shopping-bag',
-                //'label'       => Pedido::count(),
-                'label_color' => 'danger',
+                'label'       => Pedido::count(),
+                'label_color' => 'success',
             ]);
             $event->menu->add([
                 'text'        => 'Produtos',
                 'url'         => 'produtos',
                 'icon'        => 'fas fa-fw fa-seedling',
-                //'label'       => Produto::count(),
-                'label_color' => 'success',
+                'label'       => Produto::count(),
+                'label_color' => 'info',
             ]);
 
             $event->menu->add([
-                'text'        => 'Tipo',
-                'url'         => 'tipos',
-                'icon'        => 'fas fa-fw fa-seedling',
-                //'label'       => Tipo::count(),
+                'text'        => 'Estoques',
+                'url'         => 'estoques',
+                'icon'        => 'fas fa-fw fa-box',
+                'label'       => Estoque::count(),
                 'label_color' => 'warning',
             ]);
         });

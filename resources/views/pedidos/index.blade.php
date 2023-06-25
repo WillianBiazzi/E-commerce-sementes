@@ -2,7 +2,14 @@
 
 @section('content')
     <div class="container-fluid">
-        <h3>Listagem de Pedidos</h3>
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Listagem de Pedidos</h3>
+            </div>
+            <div class="col-md-6 text-right">
+                <a href="{{ route('pedidos.create', []) }}" class="btn btn-info">Adicionar Novo Pedido</a>
+            </div>
+        </div>
     </div>
 
     <table class="table table-striped table-bordered table-hover">
@@ -10,39 +17,71 @@
             <th>Pedido</th>
             <th>DataPedido</th>
             <th>Produtos</th>
-            <th>Descrição</th>
-            <th>Preço</th>
+            <th>Valor total</th>
+            <th>Ações</th>
         </thead>
         <tbody>
             @foreach ($pedidos as $pedido)
-    <tr>
-        <td>{{ $pedido->IdPedido }}</td>
-        <td>{{ $pedido->DataPedido }}</td>
-        @if ($pedido->produtos->isNotEmpty())
-            <td>
-                @foreach ($pedido->produtos as $produto)
-                    {{ $produto->NomeProduto }},
-                @endforeach
-            </td>
-            <td>
-                @foreach ($pedido->produtos as $produto)
-                    {{ $produto->Descricao }},
-                @endforeach
-            </td>
-            <td>
-                @foreach ($pedido->produtos as $produto)
-                    {{ $produto->Preco }},
-                @endforeach
-            </td>
-        @else
-            <td>Produto não encontrado</td>
-            <td>Descrição não encontrada</td>
-            <td>Preço não encontrado</td>
-        @endif
-    </tr>
-@endforeach
+                <tr class="pedido-item">
+                    <td>{{ $pedido->IdPedido }}</td>
+                    <td>{{ $pedido->DataPedido }}</td>
+                    <td>
+                        @if ($pedido->produtos->isNotEmpty())
+                            <div class="produto-info hidden">
+                                <strong>Detalhes do Pedido:</strong>
+                                <ul>
+                                    @php
+                                        $totalPedido = 0;
+                                    @endphp
+                                    @foreach ($pedido->produtos as $produto)
+                                        <li>
+                                            <strong>Produto:</strong> {{ $produto->NomeProduto }}<br>
+                                            <strong>Valor unitário:</strong> R$ {{ number_format($produto->Preco, 2, ',', '.') }}<br>
+                                            <strong>Quantidade:</strong> {{ number_format($produto->pivot->QtdPedido / 40, 2, ',', '.') }} SC<br>
+                                            <strong>Valor total do item:</strong> R$ {{ number_format($produto->Preco * $produto->pivot->QtdPedido, 2, ',', '.') }}
+                                        </li>
+                                        @php
+                                            $totalPedido += $produto->Preco * $produto->pivot->QtdPedido;
+                                        @endphp
+
+                                    @endforeach
+
+                                </ul>
+
+                            </div>
+
+                        @else
+                            Produto não encontrado
+                        @endif
+                    </td>
+                    <td>
+                        @if ($pedido->produtos->isNotEmpty())
+                            Valor total do pedido: R$ {{ number_format($totalPedido, 2, ',', '.') }}
+                        @else
+                            Valor total não calculado
+                        @endif
+                    </td>
+                    <td>
+                        <ul>
+                            <a href="{{ route('pedidos.edit', ['idPedido' => \Crypt::encrypt($pedido->idPedido)]) }}" class="btn-sm btn-success">Editar</a>
+                        </ul>
+                    </td>
+                </tr>
+            @endforeach
         </tbody>
     </table>
 
-    <a href="{{ route('pedidos.create', []) }}" class="btn btn-info">Adicionar</a>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $(".pedido-item").click(function() {
+                var $produtoInfo = $(this).find(".produto-info");
+                if ($produtoInfo.hasClass("hidden")) {
+                    $produtoInfo.removeClass("hidden");
+                } else {
+                    $produtoInfo.addClass("hidden");
+                }
+            });
+        });
+    </script>
 @stop

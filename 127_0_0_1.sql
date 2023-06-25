@@ -218,57 +218,57 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
-CREATE TABLE Clientes (
-    IdCliente INT PRIMARY KEY,
-    NomeCliente VARCHAR(50),
-    Endereco VARCHAR(100),
-    Email VARCHAR(50)
-);
+    CREATE TABLE Clientes (
+        IdCliente INT PRIMARY KEY,
+        NomeCliente VARCHAR(50),
+        Endereco VARCHAR(100),
+        Email VARCHAR(50)
+    );
 
-CREATE TABLE Produtos (
-    IdProduto INT PRIMARY KEY,
-    NomeProduto VARCHAR(30),
-    Descricao VARCHAR(50),
-    Preco DECIMAL(12, 4),
-    fk_Estoque_IdEstoque INT
-);
+    CREATE TABLE Produtos (
+        IdProduto INT PRIMARY KEY AUTO_INCREMENT,
+        NomeProduto VARCHAR(30),
+        Descricao VARCHAR(50),
+        Preco DECIMAL(12, 4),
+        fk_Estoque_IdEstoque INT
+    );
 
-CREATE TABLE Pedido (
-    IdPedido INT PRIMARY KEY,
-    DataPedido DATE,
-    fk_Clientes_IdCliente INT
-);
+    CREATE TABLE Pedido (
+        IdPedido INT PRIMARY KEY,
+        DataPedido DATE,
+        fk_Clientes_IdCliente INT
+    );
 
-CREATE TABLE Estoque (
-    Qtd DECIMAL,
-    IdEstoque INT PRIMARY KEY
-);
+    CREATE TABLE Estoque (
+        Qtd DECIMAL,
+        IdEstoque INT PRIMARY KEY AUTO_INCREMENT
+    );
 
-CREATE TABLE PedidoProduto (
-    fk_Produtos_IdProduto INT,
-    fk_Pedidos_IdPedido INT,
-    QtdPedido DECIMAL
-);
+    CREATE TABLE PedidoProduto (
+        fk_Produtos_IdProduto INT,
+        fk_Pedidos_IdPedido INT,
+        QtdPedido DECIMAL
+    );
 
-ALTER TABLE Produtos ADD CONSTRAINT FK_Produtos_2
-    FOREIGN KEY (fk_Estoque_IdEstoque)
-    REFERENCES Estoque (IdEstoque)
-    ON DELETE RESTRICT;
+    ALTER TABLE Produtos ADD CONSTRAINT FK_Produtos_2
+        FOREIGN KEY (fk_Estoque_IdEstoque)
+        REFERENCES Estoque (IdEstoque)
+        ON DELETE RESTRICT;
 
-ALTER TABLE Pedido ADD CONSTRAINT FK_Pedido_2
-    FOREIGN KEY (fk_Clientes_IdCliente)
-    REFERENCES Clientes (IdCliente)
-    ON DELETE CASCADE;
+    ALTER TABLE Pedido ADD CONSTRAINT FK_Pedido_2
+        FOREIGN KEY (fk_Clientes_IdCliente)
+        REFERENCES Clientes (IdCliente)
+        ON DELETE CASCADE;
 
-ALTER TABLE PedidoProduto ADD CONSTRAINT FK_PedidoProduto_1
-    FOREIGN KEY (fk_Produtos_IdProduto)
-    REFERENCES Produtos (IdProduto)
-    ON DELETE RESTRICT;
+    ALTER TABLE PedidoProduto ADD CONSTRAINT FK_PedidoProduto_1
+        FOREIGN KEY (fk_Produtos_IdProduto)
+        REFERENCES Produtos (IdProduto)
+        ON DELETE RESTRICT;
 
-ALTER TABLE PedidoProduto ADD CONSTRAINT FK_PedidoProduto_2
-    FOREIGN KEY (fk_Pedidos_IdPedido)
-    REFERENCES Pedidos (IdPedido)
-    ON DELETE SET NULL;
+    ALTER TABLE PedidoProduto ADD CONSTRAINT FK_PedidoProduto_2
+        FOREIGN KEY (fk_Pedidos_IdPedido)
+        REFERENCES Pedidos (IdPedido)
+        ON DELETE SET NULL;
 
 INSERT INTO Clientes (IdCliente, NomeCliente, Endereco, Email)
 VALUES (1, 'João da Silva', 'Rua A, 123', 'joao@gmail.com');

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Ator;
 use App\Http\Requests\AtorRequest;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\DB;
 
 class AtoresController extends Controller
 {
@@ -16,7 +18,7 @@ class AtoresController extends Controller
         $filtragem = $filtro->get("desc_filtro");
         if($filtragem == null) {
             //$atores = Ator::orderBy('nome')->paginate(5);
-            $atores = \DB::table('atores')
+            $atores = DB::table('atores')
                             ->join('nacionalidades', 'atores.nacionalidade_id', '=', 'nacionalidades.id')
                             ->select('atores.*', 'nacionalidades.descricao')
                             ->orderBy('atores.nome')
@@ -42,7 +44,7 @@ class AtoresController extends Controller
 
     public function destroy(Request $request) {
         try {
-            Ator::find(\Crypt::decrypt($request->get('id')))->delete();
+            Ator::find(Crypt::decrypt($request->get('id')))->delete();
             $ret = array('status'=>200, 'msg'=>"null");
         } catch (\Illuminate\Database\QueryException $e) {
             $ret = array('status'=>500, 'msg'=>$e->getMessage());
@@ -55,7 +57,7 @@ class AtoresController extends Controller
     }
 
     public function edit(Request $request) {
-        $ator = Ator::find(\Crypt::decrypt($request->get('id')));
+        $ator = Ator::find(Crypt::decrypt($request->get('id')));
         return view('atores.edit', compact('ator'));
     }
 

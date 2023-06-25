@@ -13,7 +13,6 @@ class Estoque extends Model
     // Define as colunas que podem ser preenchidas em massa
     protected $fillable = [
         'Qtd',
-        'IdEstoque',
     ];
 
     // Relacionamento com a tabela de Produtos
