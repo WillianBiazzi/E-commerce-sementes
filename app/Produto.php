@@ -1,25 +1,25 @@
 <?php
 
 namespace App;
-
 use Illuminate\Database\Eloquent\Model;
 use App\Estoque;
+use App\Pedido;
 
 class Produto extends Model
 {
-    protected $fillable = ['nomeProduto', 'descricao', 'preco', 'fk_Estoque_IdEstoque'];
-    protected $primaryKey = 'IdProduto';
-    protected $table = 'Produtos';
+    protected $fillable = ['nomeProduto', 'descricao', 'preco', 'fk_estoque_idEstoque'];
+    protected $primaryKey = 'idProduto';
+    protected $table = 'produtos';
 
     public function estoque()
     {
-        return $this->belongsTo(Estoque::class, 'fk_Estoque_IdEstoque', 'IdEstoque');
+        return $this->belongsTo(Estoque::class, 'fk_estoque_IdEstoque', 'IdEstoque');
     }
 
     public function pedidos()
     {
-        return $this->belongsToMany(Pedido::class, 'PedidoProduto', 'fk_Produtos_IdProduto', 'fk_Pedidos_IdPedido')
-                    ->withPivot('QtdPedido');
+        return $this->belongsToMany(Pedido::class, 'pedidoProduto', 'fk_produtos_idProduto', 'fk_pedidos_idPedido')
+                    ->withPivot('qtdPedido');
     }
 }
 

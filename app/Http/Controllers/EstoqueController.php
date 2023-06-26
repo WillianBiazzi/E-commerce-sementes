@@ -15,52 +15,53 @@ class EstoqueController extends Controller
     {
         $filtragem = $filtro->get("desc_filtro");
         if ($filtragem == null) {
-            $estoques = Estoque::with('produtos')->orderBy('idEstoque')->paginate(5);
+            $estoques = Estoque::with('produtos')->orderBy('IdEstoque')->paginate(5);
         } else {
             $estoques = Estoque::with('produtos')
-                ->where('idEstoque', 'like', '%' . $filtragem . '%')
-                ->orderBy('idEstoque')
+                ->where('IdEstoque', 'like', '%' . $filtragem . '%')
+                ->orderBy('IdEstoque')
                 ->paginate(5)
                 ->setPath('estoques?desc_filtro=' . $filtragem);
         }
-        return view('estoque.index', ['estoques' => $estoques]);
+        return view('estoques.index', ['estoques' => $estoques]);
     }
 
     public function create()
     {
-        return view('estoque.create');
+        return view('estoques.create');
     }
 
-    public function store(EstoqueRequest $request)
-    {
-        $data = $request->validated();
-
-        $estoque = new Estoque();
-        $estoque->Qtd = $data['qtd'];
-        $estoque->save();
-
-        return redirect()->route('estoques.create', $estoque->IdEstoque)
-            ->with('success', 'Estoque criado com sucesso.');
+    public function store(EstoqueRequest $request) {
+        $novo_estoque = $request->all();
+        Estoque::create($novo_estoque);
+        return redirect()->route('estoques');
     }
 
     public function edit(Request $request) {
-        $idEstoque = Crypt::decrypt($request->get('idEstoque'));
-        $estoque = Estoque::find($idEstoque);
+        $IdEstoque = Crypt::decrypt($request->get('IdEstoque'));
+        $estoque = Estoque::find($IdEstoque);
         $produtos = Produto::all();
 
         return view('estoques.edit', compact('estoque', 'produtos'));
     }
 
-    public function update(EstoqueRequest $request, $idEstoque) {
-        Estoque::find($idEstoque)->update($request->all());
+    public function update(EstoqueRequest $request, $IdEstoque) {
+        Estoque::find($IdEstoque)->update($request->all());
         return redirect()->route('estoques');
     }
-    public function destroy($idEstoque)
-    {
-        $estoque = Estoque::findOrFail(Crypt::decrypt($idEstoque));
-        $estoque->delete();
 
-        return redirect()->route('estoques')->with('success', 'Estoque removido com sucesso.');
+    public function destroy(Request $request) {
+        try {
+            Estoque::find(Crypt::decrypt($request->get('IdEstoque')))->delete();
+            $ret = array('status'=>200, 'msg'=>"null");
+        } catch (\Illuminate\Database\QueryException $e) {
+            $ret = array('status'=>500, 'msg'=>$e->getMessage());
+        } catch (\PDOException $e) {
+            $ret = array('status'=>500, 'msg'=>$e->getMessage());
+        }
+
+        return $ret;
+        //return redirect()->route('atores');
     }
 
 }

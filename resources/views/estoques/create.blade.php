@@ -15,8 +15,12 @@
 
     {!! Form::open(['route' => 'estoques.store']) !!}
         <div class="form-group">
-            {!! Form::label('qtd', 'Quantidade:') !!}
-            {!! Form::number('qtd', null, ['class' => 'form-control', 'required', 'step' => '0.01']) !!}
+            {!! Form::label('Qtd', 'Quantidade:') !!}
+            {!! Form::number('Qtd', null, ['class' => 'form-control', 'required', 'step' => '0.01']) !!}
+        </div>
+        <div class="form-group">
+            {!! Form::label('IdEstoque', 'ID do Estoque') !!}
+            {!! Form::number('IdEstoque', null, ['class' => 'form-control', 'required']) !!}
         </div>
         <div class="form-group">
             {!! Form::submit('Criar Estoque', ['class' => 'btn btn-primary']) !!}

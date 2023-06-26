@@ -233,7 +233,7 @@ COMMIT;
         fk_Estoque_IdEstoque INT
     );
 
-    CREATE TABLE Pedido (
+    CREATE TABLE Pedidos (
         IdPedido INT PRIMARY KEY,
         DataPedido DATE,
         fk_Clientes_IdCliente INT
@@ -255,7 +255,7 @@ COMMIT;
         REFERENCES Estoque (IdEstoque)
         ON DELETE RESTRICT;
 
-    ALTER TABLE Pedido ADD CONSTRAINT FK_Pedido_2
+    ALTER TABLE Pedidos ADD CONSTRAINT FK_Pedidos_2
         FOREIGN KEY (fk_Clientes_IdCliente)
         REFERENCES Clientes (IdCliente)
         ON DELETE CASCADE;

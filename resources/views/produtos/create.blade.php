@@ -13,8 +13,8 @@
 
     {!! Form::open(['route' => 'produtos.store'])  !!}
         <div class="form-group">
-            {!! Form::label('nome', 'Nome do Produto:') !!}
-            {!! Form::text('nome', null, ['class' => 'form-control', 'required']) !!}
+            {!! Form::label('nomeProduto', 'Nome do Produto:') !!}
+            {!! Form::text('nomeProduto', null, ['class' => 'form-control', 'required']) !!}
         </div>
         <div class="form-group">
             {!! Form::label('descricao', 'Descrição do Produto:') !!}

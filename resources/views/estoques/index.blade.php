@@ -34,8 +34,8 @@
                     </td>
                     <td>{{ $estoque->Qtd }}</td>
                     <td>
-                        <a href="{{ route('estoques.edit', ['idEstoque' => \Crypt::encrypt($estoque->idEstoque)]) }}" class="btn-sm btn-success">Editar</a>
-                        <a href="{{ route('estoques.destroy', ['idEstoque' => \Crypt::encrypt($estoque->IdEstoque)]) }}" onclick="return ConfirmaExclusao('{{ \Crypt::encrypt($estoque->IdEstoque) }}')" class="btn-sm btn-danger">Remover</a>
+                        <a href="{{ route('estoques.edit', ['IdEstoque' => \Crypt::encrypt($estoque->IdEstoque)]) }}" class="btn-sm btn-success">Editar</a>
+                        <a href="{{ route('estoques.destroy', ['IdEstoque' => \Crypt::encrypt($estoque->IdEstoque)]) }}" onclick="return ConfirmaExclusao('{{ \Crypt::encrypt($estoque->IdEstoque) }}')" class="btn-sm btn-danger">Remover</a>
                     </td>
                 </tr>
             @endforeach

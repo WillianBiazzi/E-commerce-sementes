@@ -14,10 +14,10 @@ class ProdutoRequest extends FormRequest
     public function rules()
     {
         return [
-            'nome' => 'required|max:30',
+            'nomeProduto' => 'required|max:30',
             'descricao' => 'required|max:50',
             'preco' => 'required|numeric',
-            'fk_estoque_idEstoque' => 'required|exists:estoque,IdEstoque',
+            'fk_estoque_idEstoque' => 'required|numeric',
         ];
     }
 }

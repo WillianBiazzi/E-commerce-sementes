@@ -4,29 +4,22 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePedidos extends Migration
+class CreatePedidoTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('pedidos', function (Blueprint $table) {
-            $table->bigIncrements('idPedido');
-            $table->Date('DataPedido');
+            $table->integer('idPedido')->primary();
+            $table->date('dataPedido');
+            $table->integer('fk_clientes_idCliente')->unsigned();
+            $table->foreign('fk_clientes_idCliente')->references('idCliente')->on('clientes')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('pedidos');
     }
 }
+

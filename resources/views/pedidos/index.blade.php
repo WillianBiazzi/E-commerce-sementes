@@ -23,8 +23,8 @@
         <tbody>
             @foreach ($pedidos as $pedido)
                 <tr class="pedido-item">
-                    <td>{{ $pedido->IdPedido }}</td>
-                    <td>{{ $pedido->DataPedido }}</td>
+                    <td>{{ $pedido->idPedido }}</td>
+                    <td>{{ $pedido->dataPedido }}</td>
                     <td>
                         @if ($pedido->produtos->isNotEmpty())
                             <div class="produto-info hidden">
@@ -35,10 +35,10 @@
                                     @endphp
                                     @foreach ($pedido->produtos as $produto)
                                         <li>
-                                            <strong>Produto:</strong> {{ $produto->NomeProduto }}<br>
-                                            <strong>Valor unitário:</strong> R$ {{ number_format($produto->Preco, 2, ',', '.') }}<br>
-                                            <strong>Quantidade:</strong> {{ number_format($produto->pivot->QtdPedido / 40, 2, ',', '.') }} SC<br>
-                                            <strong>Valor total do item:</strong> R$ {{ number_format($produto->Preco * $produto->pivot->QtdPedido, 2, ',', '.') }}
+                                            <strong>Produto:</strong> {{ $produto->nomeProduto }}<br>
+                                            <strong>Valor unitário:</strong> R$ {{ number_format($produto->preco, 2, ',', '.') }}<br>
+                                            <strong>Quantidade:</strong> {{ number_format($produto->pivot->qtdPedido / 40, 2, ',', '.') }} SC<br>
+                                            <strong>Valor total do item:</strong> R$ {{ number_format($produto->preco * $produto->pivot->qtdPedido, 2, ',', '.') }}
                                         </li>
                                         @php
                                             $totalPedido += $produto->Preco * $produto->pivot->QtdPedido;

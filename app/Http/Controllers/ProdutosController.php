@@ -19,20 +19,21 @@ class ProdutosController extends Controller
     {
         $filtragem = $filtro->get("desc_filtro");
         if ($filtragem == null) {
-            $produtos = Produto::orderBy('NomeProduto')->paginate(5);
+            $produto = Produto::orderBy('NomeProduto')->paginate(5);
         } else {
-            $produtos = Produto::where('NomeProduto', 'like', '%' . $filtragem . '%')
+            $produto = Produto::where('NomeProduto', 'like', '%' . $filtragem . '%')
                 ->orderBy('NomeProduto')
                 ->paginate(5)
                 ->setPath('produtos?desc_filtro=' . $filtragem);
         }
-        return view('produtos.index', ['produtos' => $produtos]);
+        return view('produtos.index', ['produtos' => $produto]);
     }
 
     public function create()
     {
         return view('produtos.create');
     }
+
 
     public function store(ProdutoRequest $request) {
         $novo_produto = $request->all();
@@ -54,23 +55,16 @@ class ProdutosController extends Controller
 
     }
 
-    public function edit(Request $request) {
+    public function edit(Request $request){
         $idProduto = Crypt::decrypt($request->get('idProduto'));
         $produto = Produto::find($idProduto);
-        $estoques = Estoque::all(); // Obtenha todos os estoques do banco de dados
+        $produtos = Produto::all();
 
-        return view('produtos.edit', compact('produto', 'estoques'));
+        return view('produtos.edit', compact('produto', 'produtos'));
     }
 
-    public function update(Request $request, $idProduto)
-    {
-        $produto = Produto::find($idProduto);
-        $produto->NomeProduto = $request->input('nomeProduto');
-        $produto->Descricao = $request->input('descricao');
-        $produto->Preco = $request->input('preco');
-        $produto->fk_Estoque_IdEstoque = $request->input('fk_Estoque_idEstoque');
-        $produto->save();
-
-        return redirect()->route('produtos.index')->with('success', 'Produto atualizado com sucesso.');
+    public function update(ProdutoRequest $request, $idProduto) {
+        Produto::find($idProduto)->update($request->all());
+        return redirect()->route('produtos');
     }
 }

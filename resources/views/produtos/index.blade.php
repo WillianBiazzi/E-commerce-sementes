@@ -16,6 +16,7 @@
     {!! Form::close() !!}
     <table class="table table-striped table-bordered table-hover">
         <thead>
+            <th>ID Produto</th>
             <th>Nome</th>
             <th>Descrição</th>
             <th>Preço</th>
@@ -25,12 +26,13 @@
         <tbody>
             @foreach ($produtos as $produto)
                 <tr>
-                    <td>{{ $produto->NomeProduto }}</td>
-                    <td>{{ $produto->Descricao }}</td>
-                    <td>{{ $produto->Preco }}</td>
+                    <td>{{ $produto->idProduto }}</td>
+                    <td>{{ $produto->nomeProduto }}</td>
+                    <td>{{ $produto->descricao }}</td>
+                    <td>{{ $produto->preco }}</td>
                     <td>{{ isset($produto->estoque->Qtd) ? $produto->estoque->Qtd : "Estoque não informado" }}</td>
                     <td>
-                        <a href="{{ route('produtos.edit', ['idProduto' => \Crypt::encrypt($produto->IdProduto)]) }}" class="btn-sm btn-success">Editar</a>
+                        <a href="{{ route('produtos.edit', ['idProduto' => \Crypt::encrypt($produto->idProduto)]) }}" class="btn-sm btn-success">Editar</a>
                         <a href="#" onclick="return ConfirmaExclusao('{{ \Crypt::encrypt($produto->idProduto) }}')" class="btn-sm btn-danger">Remover</a>
 
                     </td>
