@@ -33,7 +33,7 @@ use Illuminate\Support\Facades\Auth;
             Route::post('store',        ['as' => 'pedidos.store',    'uses' => 'PedidosController@store'  ]);
             Route::get ('destroy',      ['as' => 'pedidos.destroy',  'uses' => 'PedidosController@destroy']);
             Route::get ('edit',         ['as' => 'pedidos.edit',     'uses' => 'PedidosController@edit'   ]);
-            Route::put ('{id}/update',  ['as' => 'pedidos.update',   'uses' => 'PedidosController@update' ]);
+            Route::put ('{idPedido}/update',  ['as' => 'pedidos.update',   'uses' => 'PedidosController@update' ]);
         });
         Route::group(['prefix' => 'produtos', 'where' => ['idProduto' => '[0-9]+']], function () {
             Route::get('',              ['as' => 'produtos',            'uses' => 'ProdutosController@index']);

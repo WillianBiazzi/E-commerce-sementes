@@ -245,9 +245,9 @@ COMMIT;
     );
 
     CREATE TABLE PedidoProduto (
-        fk_Produtos_IdProduto INT,
-        fk_Pedidos_IdPedido INT,
-        QtdPedido DECIMAL
+        fk_Produtos_idProduto INT,
+        fk_Pedidos_idPedido INT,
+        qtdPedido DECIMAL
     );
 
     ALTER TABLE Produtos ADD CONSTRAINT FK_Produtos_2
@@ -261,13 +261,13 @@ COMMIT;
         ON DELETE CASCADE;
 
     ALTER TABLE PedidoProduto ADD CONSTRAINT FK_PedidoProduto_1
-        FOREIGN KEY (fk_Produtos_IdProduto)
-        REFERENCES Produtos (IdProduto)
+        FOREIGN KEY (fk_produtos_idProduto)
+        REFERENCES produtos (idProduto)
         ON DELETE RESTRICT;
 
-    ALTER TABLE PedidoProduto ADD CONSTRAINT FK_PedidoProduto_2
-        FOREIGN KEY (fk_Pedidos_IdPedido)
-        REFERENCES Pedidos (IdPedido)
+    ALTER TABLE PedidoProduto ADD CONSTRAINT FK_pedidoProduto_2
+        FOREIGN KEY (fk_pedidos_idPedido)
+        REFERENCES pedidos (idPedido)
         ON DELETE SET NULL;
 
 INSERT INTO Clientes (IdCliente, NomeCliente, Endereco, Email)

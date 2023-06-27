@@ -15,11 +15,11 @@ class PedidosController extends Controller{
 
     if ($filtragem != null) {
         $query->whereHas('produtos', function ($subQuery) use ($filtragem) {
-            $subQuery->where('NomeProduto', 'like', '%' . $filtragem . '%');
+            $subQuery->where('nomeProduto', 'like', '%' . $filtragem . '%');
         });
     }
 
-    $pedidos = $query->orderBy('IdPedido')->paginate(5);
+    $pedidos = $query->orderBy('idPedido')->paginate(5);
     return view('pedidos.index', compact('pedidos'));
 }
 
@@ -31,32 +31,32 @@ class PedidosController extends Controller{
     public function store(Request $request)
     {
         $request->validate([
-            'cliente_id' => 'required',
-            'produto_id' => 'required',
-            'quantidade' => 'required|numeric|min:1',
+            'cliente_idCliente' => 'required',
+            'produto_idProduto' => 'required',
+            'qtdPedido' => 'required|numeric|min:1',
         ]);
 
-        $produto = Produto::find($request->input('produto_id'));
-        $quantidade = $request->input('quantidade');
-        $valorTotal = $produto->valor * $quantidade;
+        $produto = Produto::find($request->input('produto_idProduto'));
+        $qtdPedido = $request->input('qtdPedido');
+        $valorTotal = $produto->valor * $qtdPedido;
 
         $pedido = new Pedido();
-        $pedido->cliente_id = $request->input('cliente_id');
-        $pedido->produto_id = $request->input('produto_id');
-        $pedido->quantidade = $quantidade;
-        $pedido->valor_total = $valorTotal;
+        $pedido->cliente_idCliente = $request->input('cliente_idCliente');
+        $pedido->produto_idProduto = $request->input('produto_idProduto');
+        $pedido->qtdPedido = $qtdPedido;
+        $pedido->valorTotal = $valorTotal;
         $pedido->save();
 
         return redirect()->route('pedidos.index')->with('success', 'Pedido criado com sucesso!');
     }
 
-    public function show($id){
-        $pedido = Pedido::findOrFail($id);
+    public function show($idPedido){
+        $pedido = Pedido::findOrFail($idPedido);
         return view('pedidos.show', compact('pedido'));
     }
 
-    public function edit($id){
-        $pedido = Pedido::findOrFail($id);
+    public function edit($idPedido){
+        $pedido = Pedido::findOrFail($idPedido);
         return view('pedidos.edit', compact('pedido'));
     }
 

@@ -41,15 +41,11 @@
                                             <strong>Valor total do item:</strong> R$ {{ number_format($produto->preco * $produto->pivot->qtdPedido, 2, ',', '.') }}
                                         </li>
                                         @php
-                                            $totalPedido += $produto->Preco * $produto->pivot->QtdPedido;
+                                            $totalPedido += $produto->preco * $produto->pivot->qtdPedido;
                                         @endphp
-
                                     @endforeach
-
                                 </ul>
-
                             </div>
-
                         @else
                             Produto não encontrado
                         @endif
@@ -63,13 +59,17 @@
                     </td>
                     <td>
                         <ul>
-                            <a href="{{ route('pedidos.edit', ['idPedido' => \Crypt::encrypt($pedido->idPedido)]) }}" class="btn-sm btn-success">Editar</a>
+                            <a href="{{ route('pedidos.edit', ['id' => \Crypt::encrypt($pedido->idPedido)]) }}" class="btn-sm btn-success">Editar</a>
                         </ul>
                     </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
+
+    <div class="pagination">
+        {{ $pedidos->links() }}
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
@@ -85,3 +85,4 @@
         });
     </script>
 @stop
+    

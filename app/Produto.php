@@ -13,7 +13,7 @@ class Produto extends Model
 
     public function estoque()
     {
-        return $this->belongsTo(Estoque::class, 'fk_estoque_IdEstoque', 'IdEstoque');
+        return $this->belongsTo(Estoque::class, 'fk_estoque_idEstoque', 'idEstoque');
     }
 
     public function pedidos()
