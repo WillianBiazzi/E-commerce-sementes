@@ -15,11 +15,11 @@ class EstoqueController extends Controller
     {
         $filtragem = $filtro->get("desc_filtro");
         if ($filtragem == null) {
-            $estoques = Estoque::with('produtos')->orderBy('IdEstoque')->paginate(5);
+            $estoques = Estoque::with('produtos')->orderBy('idEstoque')->paginate(5);
         } else {
             $estoques = Estoque::with('produtos')
-                ->where('IdEstoque', 'like', '%' . $filtragem . '%')
-                ->orderBy('IdEstoque')
+                ->where('idEstoque', 'like', '%' . $filtragem . '%')
+                ->orderBy('idEstoque')
                 ->paginate(5)
                 ->setPath('estoques?desc_filtro=' . $filtragem);
         }
@@ -38,21 +38,21 @@ class EstoqueController extends Controller
     }
 
     public function edit(Request $request) {
-        $IdEstoque = Crypt::decrypt($request->get('IdEstoque'));
-        $estoque = Estoque::find($IdEstoque);
+        $idEstoque = Crypt::decrypt($request->get('idEstoque'));
+        $estoque = Estoque::find($idEstoque);
         $produtos = Produto::all();
 
         return view('estoques.edit', compact('estoque', 'produtos'));
     }
 
-    public function update(EstoqueRequest $request, $IdEstoque) {
-        Estoque::find($IdEstoque)->update($request->all());
+    public function update(EstoqueRequest $request, $idEstoque) {
+        Estoque::find($idEstoque)->update($request->all());
         return redirect()->route('estoques');
     }
 
     public function destroy(Request $request) {
         try {
-            Estoque::find(Crypt::decrypt($request->get('IdEstoque')))->delete();
+            Estoque::find(Crypt::decrypt($request->get('idEstoque')))->delete();
             $ret = array('status'=>200, 'msg'=>"null");
         } catch (\Illuminate\Database\QueryException $e) {
             $ret = array('status'=>500, 'msg'=>$e->getMessage());

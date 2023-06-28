@@ -218,211 +218,201 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
-    CREATE TABLE Clientes (
-        IdCliente INT PRIMARY KEY,
-        NomeCliente VARCHAR(50),
-        Endereco VARCHAR(100),
-        Email VARCHAR(50)
-    );
+   CREATE TABLE estoque (
+    idEstoque INT PRIMARY KEY AUTO_INCREMENT,
+    qtd DECIMAL
+);
+CREATE TABLE clientes (
+    idCliente INT PRIMARY KEY AUTO_INCREMENT,
+    nomeCliente VARCHAR(50),
+    endereco VARCHAR(100),
+    email VARCHAR(50)
+);
+CREATE TABLE produtos (
+    idProduto INT PRIMARY KEY AUTO_INCREMENT,
+    nomeProduto VARCHAR(30),
+    descricao VARCHAR(50),
+    preco DECIMAL(12, 4),
+    fk_estoque_idEstoque INT,
+    FOREIGN KEY (fk_estoque_idEstoque)
+    REFERENCES estoque (idEstoque)
+    ON DELETE RESTRICT
+);
+CREATE TABLE pedidos (
+    idPedido INT PRIMARY KEY AUTO_INCREMENT,
+    dataPedido DATE,
+    fk_clientes_idCliente INT,
+    FOREIGN KEY (fk_clientes_idCliente)
+    REFERENCES clientes (idCliente)
+    ON DELETE CASCADE
+);
+CREATE TABLE pedidoProduto (
+    fk_produtos_idProduto INT,
+    fk_pedidos_idPedido INT,
+    qtdPedido DECIMAL,
+    FOREIGN KEY (fk_produtos_idProduto)
+    REFERENCES produtos (idProduto)
+    ON DELETE RESTRICT,
+    FOREIGN KEY (fk_pedidos_idPedido)
+    REFERENCES pedidos (idPedido)
+    ON DELETE SET NULL
+);
 
-    CREATE TABLE Produtos (
-        IdProduto INT PRIMARY KEY AUTO_INCREMENT,
-        NomeProduto VARCHAR(30),
-        Descricao VARCHAR(50),
-        Preco DECIMAL(12, 4),
-        fk_Estoque_IdEstoque INT
-    );
-
-    CREATE TABLE Pedidos (
-        IdPedido INT PRIMARY KEY,
-        DataPedido DATE,
-        fk_Clientes_IdCliente INT
-    );
-
-    CREATE TABLE Estoque (
-        Qtd DECIMAL,
-        IdEstoque INT PRIMARY KEY AUTO_INCREMENT
-    );
-
-    CREATE TABLE PedidoProduto (
-        fk_Produtos_idProduto INT,
-        fk_Pedidos_idPedido INT,
-        qtdPedido DECIMAL
-    );
-
-    ALTER TABLE Produtos ADD CONSTRAINT FK_Produtos_2
-        FOREIGN KEY (fk_Estoque_IdEstoque)
-        REFERENCES Estoque (IdEstoque)
-        ON DELETE RESTRICT;
-
-    ALTER TABLE Pedidos ADD CONSTRAINT FK_Pedidos_2
-        FOREIGN KEY (fk_Clientes_IdCliente)
-        REFERENCES Clientes (IdCliente)
-        ON DELETE CASCADE;
-
-    ALTER TABLE PedidoProduto ADD CONSTRAINT FK_PedidoProduto_1
-        FOREIGN KEY (fk_produtos_idProduto)
-        REFERENCES produtos (idProduto)
-        ON DELETE RESTRICT;
-
-    ALTER TABLE PedidoProduto ADD CONSTRAINT FK_pedidoProduto_2
-        FOREIGN KEY (fk_pedidos_idPedido)
-        REFERENCES pedidos (idPedido)
-        ON DELETE SET NULL;
-
-INSERT INTO Clientes (IdCliente, NomeCliente, Endereco, Email)
+INSERT INTO clientes (idCliente, nomeCliente, endereco, email)
 VALUES (1, 'João da Silva', 'Rua A, 123', 'joao@gmail.com');
 
-INSERT INTO Clientes (IdCliente, NomeCliente, Endereco, Email)
+INSERT INTO clientes (idCliente, nomeCliente, endereco, email)
 VALUES (2, 'José da Silva', 'Fazenda Boa Esperança, S/N', 'jose.silva@hotmail.com');
 
-INSERT INTO Clientes (IdCliente, NomeCliente, Endereco, Email)
+INSERT INTO clientes (idCliente, nomeCliente, endereco, email)
 VALUES (3, 'Pedro Oliveira', 'Fazenda Santa Rosa, S/N', 'pedro.oliveira@yahoo.com');
 
-INSERT INTO Clientes (IdCliente, NomeCliente, Endereco, Email)
+INSERT INTO clientes (idCliente, nomeCliente, endereco, email)
 VALUES (4, 'Ana Pereira', 'Fazenda Santo Antônio, S/N', 'ana.pereira@gmail.com');
 
-INSERT INTO Clientes (IdCliente, NomeCliente, Endereco, Email)
+INSERT INTO clientes (idCliente, nomeCliente, endereco, email)
 VALUES (5, 'Márcia Santos', 'Fazenda Nossa Senhora Aparecida, S/N', 'marcia.santos@fazenda.com');
 
-INSERT INTO Clientes (IdCliente, NomeCliente, Endereco, Email)
+INSERT INTO clientes (idCliente, nomeCliente, endereco, email)
 VALUES (6, 'Lucas Oliveira', 'Fazenda São José, S/N', 'lucas.oliveira@terra.com');
 
-INSERT INTO Clientes (IdCliente, NomeCliente, Endereco, Email)
+INSERT INTO clientes (idCliente, nomeCliente, endereco, email)
 VALUES (7, 'Fernanda Silva', 'Fazenda Esperança, S/N', 'fernanda.silva@fazenda.com');
 
-INSERT INTO Clientes (IdCliente, NomeCliente, Endereco, Email)
+INSERT INTO clientes (idCliente, nomeCliente, endereco, email)
 VALUES (8, 'Rafaela Pereira', 'Fazenda São Francisco, S/N', 'rafaela.pereira@gmail.com');
 
-INSERT INTO Clientes (IdCliente, NomeCliente, Endereco, Email)
+INSERT INTO clientes (idCliente, nomeCliente, endereco, email)
 VALUES (9, 'Gustavo Oliveira', 'Fazenda Santo Inácio, S/N', 'gustavo.oliveira@fazenda.com');
 
-INSERT INTO Clientes (IdCliente, NomeCliente, Endereco, Email)
+INSERT INTO clientes (idCliente, nomeCliente, endereco, email)
 VALUES (10, 'Carolina Santos', 'Fazenda Nova Vida, S/N', 'carolina.santos@hotmail.com');
 
-INSERT INTO Estoque (IdEstoque, Qtd)
+
+INSERT INTO estoques (idEstoque, qtd)
 VALUES (1, 3000000);
 
-INSERT INTO Estoque (IdEstoque, Qtd)
+INSERT INTO estoques (idEstoque, qtd)
 VALUES (2, 4000000);
 
-INSERT INTO Estoque (IdEstoque, Qtd)
+INSERT INTO estoques (idEstoque, qtd)
 VALUES (3, 3500000);
 
-INSERT INTO Estoque (IdEstoque, Qtd)
+INSERT INTO estoques (idEstoque, qtd)
 VALUES (4, 5000000);
 
-INSERT INTO Estoque (IdEstoque, Qtd)
+INSERT INTO estoques (idEstoque, qtd)
 VALUES (5, 3700000);
 
-INSERT INTO Estoque (IdEstoque, Qtd)
+INSERT INTO estoques (idEstoque, qtd)
 VALUES (6, 4500000);
 
-INSERT INTO Estoque (IdEstoque, Qtd)
+INSERT INTO estoques (idEstoque, qtd)
 VALUES (7, 3600000);
 
-INSERT INTO Estoque (IdEstoque, Qtd)
+INSERT INTO estoques (idEstoque, qtd)
 VALUES (8, 4600000);
 
-INSERT INTO Estoque (IdEstoque, Qtd)
+INSERT INTO estoques (idEstoque, qtd)
 VALUES (9, 5100000);
 
-INSERT INTO Estoque (IdEstoque, Qtd)
+INSERT INTO estoques (idEstoque, qtd)
 VALUES (10, 3400000);
 
-INSERT INTO Estoque (IdEstoque, Qtd)
+INSERT INTO estoques (idEstoque, qtd)
 VALUES (11, 4200000);
 
-INSERT INTO Estoque (IdEstoque, Qtd)
+INSERT INTO estoques (idEstoque, qtd)
 VALUES (12, 5000000);
 
 
-INSERT INTO Produtos (IdProduto, NomeProduto, Descricao, Preco, fk_Estoque_IdEstoque)
+INSERT INTO produtos (idProduto, nomeProduto, descricao, preco, fk_estoque_idEstoque)
 VALUES(1, 'Bramax Zeus Ipro', 'SOJA', 12.50, 1);
 
-INSERT INTO Produtos (IdProduto, NomeProduto, Descricao, Preco, fk_Estoque_IdEstoque)
+INSERT INTO produtos (idProduto, nomeProduto, descricao, preco, fk_estoque_idEstoque)
 VALUES(2, 'Bramax Fibra Ipro', 'SOJA', 11.75, 2);
 
-INSERT INTO Produtos (IdProduto, NomeProduto, Descricao, Preco, fk_Estoque_IdEstoque)
+INSERT INTO produtos (idProduto, nomeProduto, descricao, preco, fk_estoque_idEstoque)
 VALUES(3, 'Don Mario 66I68RSF Ipro', 'SOJA', 13.00, 3);
 
-INSERT INTO Produtos (IdProduto, NomeProduto, Descricao, Preco, fk_Estoque_IdEstoque)
+INSERT INTO produtos (idProduto, nomeProduto, descricao, preco, fk_estoque_idEstoque)
 VALUES(4, 'Golden Harvest GH2258 Ipro', 'SOJA', 12.00, 4);
 
-INSERT INTO Produtos (IdProduto, NomeProduto, Descricao, Preco, fk_Estoque_IdEstoque)
+INSERT INTO produtos (idProduto, nomeProduto, descricao, preco, fk_estoque_idEstoque)
 VALUES(5, 'Monsoy M6620 I2X', 'SOJA', 10.75, 5);
 
-INSERT INTO Produtos (IdProduto, NomeProduto, Descricao, Preco, fk_Estoque_IdEstoque)
+INSERT INTO produtos (idProduto, nomeProduto, descricao, preco, fk_estoque_idEstoque)
 VALUES(6, 'ROOS 90', 'TRIGO', 3.75, 6);
 
-INSERT INTO Produtos (IdProduto, NomeProduto, Descricao, Preco, fk_Estoque_IdEstoque)
+INSERT INTO produtos (idProduto, nomeProduto, descricao, preco, fk_estoque_idEstoque)
 VALUES(7, 'TBIO Ponteiro', ' TRIGO ', 3.80, 7);
 
-INSERT INTO Produtos (IdProduto, NomeProduto, Descricao, Preco, fk_Estoque_IdEstoque)
+INSERT INTO produtos (idProduto, nomeProduto, descricao, preco, fk_estoque_idEstoque)
 VALUES(8, 'TBIO Calibre', ' TRIGO ', 3.50, 8);
 
-INSERT INTO Produtos (IdProduto, NomeProduto, Descricao, Preco, fk_Estoque_IdEstoque)
+INSERT INTO produtos (idProduto, nomeProduto, descricao, preco, fk_estoque_idEstoque)
 VALUES(9, 'OR ORS Absoluto', ' TRIGO', 3.25, 9);
 
-INSERT INTO Produtos (IdProduto, NomeProduto, Descricao, Preco, fk_Estoque_IdEstoque)
+INSERT INTO produtos (idProduto, nomeProduto, descricao, preco, fk_estoque_idEstoque)
 VALUES(10, 'Semevinea TSZ Dominadore', ' TRIGO ', 2.80, 10);
 
-INSERT INTO Produtos (IdProduto, NomeProduto, Descricao, Preco, fk_Estoque_IdEstoque)
+INSERT INTO produtos (idProduto, nomeProduto, descricao, preco, fk_estoque_idEstoque)
 VALUES(11, 'AG 9035', ' MILHO', 17.50, 11);
 
-INSERT INTO Produtos (IdProduto, NomeProduto, Descricao, Preco, fk_Estoque_IdEstoque)
+INSERT INTO produtos (idProduto, nomeProduto, descricao, preco, fk_estoque_idEstoque)
 VALUES(12, 'AG 7088', ' MILHO', 18.00, 12);
 
 
-INSERT INTO Pedido (IdPedido, DataPedido, fk_Clientes_IdCliente)
+INSERT INTO pedidos (idPedido, dataPedido, fk_clientes_idCliente)
 VALUES (1, '2023-06-01', 1);
 
-INSERT INTO Pedido (IdPedido, DataPedido, fk_Clientes_IdCliente)
+INSERT INTO pedidos (idPedido, dataPedido, fk_clientes_idCliente)
 VALUES (2, '2023-06-02', 2);
 
-INSERT INTO Pedido (IdPedido, DataPedido, fk_Clientes_IdCliente)
+INSERT INTO pedidos (idPedido, dataPedido, fk_clientes_idCliente)
 VALUES (3, '2023-06-03', 3);
 
-INSERT INTO Pedido (IdPedido, DataPedido, fk_Clientes_IdCliente)
+INSERT INTO pedidos (idPedido, dataPedido, fk_clientes_idCliente)
 VALUES (4, '2023-06-04', 4);
 
-INSERT INTO Pedido (IdPedido, DataPedido, fk_Clientes_IdCliente)
+INSERT INTO pedidos (idPedido, dataPedido, fk_clientes_idCliente)
 VALUES (5, '2023-06-05', 5);
 
 
-INSERT INTO PedidoProduto (fk_Produtos_IdProduto, fk_Pedidos_IdPedido, QtdPedido)
+INSERT INTO pedidoProduto (fk_produtos_idProduto, fk_pedidos_idPedido, qtdPedido)
 VALUES (1, 1, 100000);
 
-INSERT INTO PedidoProduto (fk_Produtos_IdProduto, fk_Pedidos_IdPedido, QtdPedido)
+INSERT INTO pedidoProduto (fk_produtos_idProduto, fk_pedidos_idPedido, qtdPedido)
 VALUES (2, 1, 550000);
 
-INSERT INTO PedidoProduto (fk_Produtos_IdProduto, fk_Pedidos_IdPedido, QtdPedido)
+INSERT INTO pedidoProduto (fk_produtos_idProduto, fk_pedidos_idPedido, qtdPedido)
 VALUES (3, 1, 80000);
 
-INSERT INTO PedidoProduto (fk_Produtos_IdProduto, fk_Pedidos_IdPedido, QtdPedido)
+INSERT INTO pedidoProduto (fk_produtos_idProduto, fk_pedidos_idPedido, qtdPedido)
 VALUES (4, 2, 150000);
 
-INSERT INTO PedidoProduto (fk_Produtos_IdProduto, fk_Pedidos_IdPedido, QtdPedido)
+INSERT INTO pedidoProduto (fk_produtos_idProduto, fk_pedidos_idPedido, qtdPedido)
 VALUES (5, 2, 12000);
 
-INSERT INTO PedidoProduto (fk_Produtos_IdProduto, fk_Pedidos_IdPedido, QtdPedido)
+INSERT INTO pedidoProduto (fk_produtos_idProduto, fk_pedidos_idPedido, qtdPedido)
 VALUES (6, 3, 200500);
 
-INSERT INTO PedidoProduto (fk_Produtos_IdProduto, fk_Pedidos_IdPedido, QtdPedido)
+INSERT INTO pedidoProduto (fk_produtos_idProduto, fk_pedidos_idPedido, qtdPedido)
 VALUES (7, 3, 67500);
 
-INSERT INTO PedidoProduto (fk_Produtos_IdProduto, fk_Pedidos_IdPedido, QtdPedido)
+INSERT INTO pedidoProduto (fk_produtos_idProduto, fk_pedidos_idPedido, qtdPedido)
 VALUES (8, 4, 99555);
 
-INSERT INTO PedidoProduto (fk_Produtos_IdProduto, fk_Pedidos_IdPedido, QtdPedido)
+INSERT INTO pedidoProduto (fk_produtos_idProduto, fk_pedidos_idPedido, qtdPedido)
 VALUES (9, 4, 715610);
 
-INSERT INTO PedidoProduto (fk_Produtos_IdProduto, fk_Pedidos_IdPedido, QtdPedido)
+INSERT INTO pedidoProduto (fk_produtos_idProduto, fk_pedidos_idPedido, qtdPedido)
 VALUES (10, 5, 115120);
 
-INSERT INTO PedidoProduto (fk_Produtos_IdProduto, fk_Pedidos_IdPedido, QtdPedido)
+INSERT INTO pedidoProduto (fk_produtos_idProduto, fk_pedidos_idPedido, qtdPedido)
 VALUES (11, 5, 14450);
 
-INSERT INTO PedidoProduto (fk_Produtos_IdProduto, fk_Pedidos_IdPedido, QtdPedido)
+INSERT INTO pedidoProduto (fk_produtos_idProduto, fk_pedidos_idPedido, qtdPedido)
 VALUES (12, 5, 160000);
+
 

@@ -3,6 +3,15 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
     Route::group(['middleware'=>'auth'], function () {
+        Route::group(['prefix'=>'atores', 'where'=>['id'=>'[0-9]+']], function () {
+            Route::any ('',             ['as' => 'atores',          'uses' => 'AtoresController@index'  ]);
+            Route::get ('create',       ['as' => 'atores.create',   'uses' => 'AtoresController@create' ]);
+            Route::post('store',        ['as' => 'atores.store',    'uses' => 'AtoresController@store'  ]);
+            Route::get ('destroy',      ['as' => 'atores.destroy',  'uses' => 'AtoresController@destroy']);
+            Route::get ('edit',         ['as' => 'atores.edit',     'uses' => 'AtoresController@edit'   ]);
+            Route::put ('{id}/update',  ['as' => 'atores.update',   'uses' => 'AtoresController@update' ]);
+        });
+
         Route::group(['prefix'=>'pedidos', 'where'=>['idPedido'=>'[0-9]+']], function () {
             Route::any ('',             ['as' => 'pedidos',          'uses' => 'PedidosController@index'  ]);
             Route::get ('create',       ['as' => 'pedidos.create',   'uses' => 'PedidosController@create' ]);
@@ -42,6 +51,3 @@ use Illuminate\Support\Facades\Auth;
 Auth::routes();
 Route::view('/', 'welcome');
 Route::get('/home', 'HomeController@index')->name('home');
-
-
-

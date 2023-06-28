@@ -25,11 +25,11 @@
         <tbody>
             @foreach ($estoques as $estoque)
                 <tr>
-                    <td>{{ $estoque->IdEstoque }}</td>
-                    <td>{{ $estoque->Qtd }}</td>
+                    <td>{{ $estoque->idEstoque }}</td>
+                    <td>{{ $estoque->qtd }}</td>
                     <td>
-                        <a href="{{ route('estoques.edit', ['IdEstoque' => \Crypt::encrypt($estoque->IdEstoque)]) }}" class="btn-sm btn-success">Editar</a>
-                        <a href="{{ route('estoques.destroy', ['IdEstoque' => \Crypt::encrypt($estoque->IdEstoque)]) }}" onclick="return confirm('Tem certeza de que deseja excluir este item?')" class="btn-sm btn-danger">Remover</a>
+                        <a href="{{ route('estoques.edit', ['idEstoque' => \Crypt::encrypt($estoque->idEstoque)]) }}" class="btn-sm btn-success">Editar</a>
+                        <a href="{{ route('estoques.destroy', ['idEstoque' => \Crypt::encrypt($estoque->idEstoque)]) }}" onclick="return confirm('Tem certeza de que deseja excluir este Estoque?')" class="btn-sm btn-danger">Remover</a>
                     </td>
                 </tr>
             @endforeach

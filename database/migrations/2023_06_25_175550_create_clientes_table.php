@@ -6,10 +6,15 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateClientesTable extends Migration
 {
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
     public function up()
     {
         Schema::create('clientes', function (Blueprint $table) {
-            $table->integer('idCliente')->primary();
+            $table->increments('idCliente');
             $table->string('nomeCliente', 50);
             $table->string('endereco', 100);
             $table->string('email', 50);
@@ -17,6 +22,11 @@ class CreateClientesTable extends Migration
         });
     }
 
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
     public function down()
     {
         Schema::dropIfExists('clientes');

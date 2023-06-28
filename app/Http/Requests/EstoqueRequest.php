@@ -24,7 +24,7 @@ class EstoqueRequest extends FormRequest
     public function rules()
     {
         return [
-            'Qtd' => 'required',
+            'qtd' => 'required',
         ];
     }
 }

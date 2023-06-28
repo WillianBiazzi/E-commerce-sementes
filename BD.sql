@@ -69,40 +69,40 @@ INSERT INTO clientes (idCliente, nomeCliente, endereco, email)
 VALUES (10, 'Carolina Santos', 'Fazenda Nova Vida, S/N', 'carolina.santos@hotmail.com');
 
 
-INSERT INTO estoque (idEstoque, qtd)
+INSERT INTO estoques (idEstoque, qtd)
 VALUES (1, 3000000);
 
-INSERT INTO estoque (idEstoque, qtd)
+INSERT INTO estoques (idEstoque, qtd)
 VALUES (2, 4000000);
 
-INSERT INTO estoque (idEstoque, qtd)
+INSERT INTO estoques (idEstoque, qtd)
 VALUES (3, 3500000);
 
-INSERT INTO estoque (idEstoque, qtd)
+INSERT INTO estoques (idEstoque, qtd)
 VALUES (4, 5000000);
 
-INSERT INTO estoque (idEstoque, qtd)
+INSERT INTO estoques (idEstoque, qtd)
 VALUES (5, 3700000);
 
-INSERT INTO estoque (idEstoque, qtd)
+INSERT INTO estoques (idEstoque, qtd)
 VALUES (6, 4500000);
 
-INSERT INTO estoque (idEstoque, qtd)
+INSERT INTO estoques (idEstoque, qtd)
 VALUES (7, 3600000);
 
-INSERT INTO estoque (idEstoque, qtd)
+INSERT INTO estoques (idEstoque, qtd)
 VALUES (8, 4600000);
 
-INSERT INTO estoque (idEstoque, qtd)
+INSERT INTO estoques (idEstoque, qtd)
 VALUES (9, 5100000);
 
-INSERT INTO estoque (idEstoque, qtd)
+INSERT INTO estoques (idEstoque, qtd)
 VALUES (10, 3400000);
 
-INSERT INTO estoque (idEstoque, qtd)
+INSERT INTO estoques (idEstoque, qtd)
 VALUES (11, 4200000);
 
-INSERT INTO estoque (idEstoque, qtd)
+INSERT INTO estoques (idEstoque, qtd)
 VALUES (12, 5000000);
 
 
