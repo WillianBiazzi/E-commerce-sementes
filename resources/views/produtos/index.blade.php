@@ -33,7 +33,9 @@
                     <td>{{ isset($produto->estoque->Qtd) ? $produto->estoque->Qtd : "Estoque não informado" }}</td>
                     <td>
                         <a href="{{ route('produtos.edit', ['idProduto' => \Crypt::encrypt($produto->idProduto)]) }}" class="btn-sm btn-success">Editar</a>
-                        <a href="{{ route('produtos.destroy', ['idProduto' => \Crypt::encrypt($produto->idProduto)]) }}" onclick="return ConfirmaExclusao('{{ \Crypt::encrypt($produto->idProduto) }}')" class="btn-sm btn-danger">Remover</a>
+                        <a href="{{ route('produtos.destroy', ['idProduto' => \Crypt::encrypt($produto->idProduto)]) }}"
+                            onclick="return confirm('Tem certeza que deseja excluir este produto?')"
+                            class="btn-sm btn-danger">Remover</a>
 
                     </td>
                 </tr>

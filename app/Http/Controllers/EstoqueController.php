@@ -59,9 +59,7 @@ class EstoqueController extends Controller
         } catch (\PDOException $e) {
             $ret = array('status'=>500, 'msg'=>$e->getMessage());
         }
-
-        return $ret;
-        //return redirect()->route('atores');
+        return redirect()->route('estoques');
     }
 
 }

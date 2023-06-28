@@ -18,7 +18,6 @@
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Produtos Relacionados</th>
                 <th>Quantidade</th>
                 <th>Ações</th>
             </tr>
@@ -27,15 +26,10 @@
             @foreach ($estoques as $estoque)
                 <tr>
                     <td>{{ $estoque->IdEstoque }}</td>
-                    <td>
-                        @foreach ($estoque->produtos as $produto)
-                            {{ $produto->NomeProduto }},
-                        @endforeach
-                    </td>
                     <td>{{ $estoque->Qtd }}</td>
                     <td>
                         <a href="{{ route('estoques.edit', ['IdEstoque' => \Crypt::encrypt($estoque->IdEstoque)]) }}" class="btn-sm btn-success">Editar</a>
-                        <a href="{{ route('estoques.destroy', ['IdEstoque' => \Crypt::encrypt($estoque->IdEstoque)]) }}" onclick="return ConfirmaExclusao('{{ \Crypt::encrypt($estoque->IdEstoque) }}')" class="btn-sm btn-danger">Remover</a>
+                        <a href="{{ route('estoques.destroy', ['IdEstoque' => \Crypt::encrypt($estoque->IdEstoque)]) }}" onclick="return confirm('Tem certeza de que deseja excluir este item?')" class="btn-sm btn-danger">Remover</a>
                     </td>
                 </tr>
             @endforeach

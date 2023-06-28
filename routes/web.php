@@ -3,30 +3,6 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
     Route::group(['middleware'=>'auth'], function () {
-        Route::group(['prefix'=>'atores', 'where'=>['id'=>'[0-9]+']], function () {
-            Route::any ('',             ['as' => 'atores',          'uses' => 'AtoresController@index'  ]);
-            Route::get ('create',       ['as' => 'atores.create',   'uses' => 'AtoresController@create' ]);
-            Route::post('store',        ['as' => 'atores.store',    'uses' => 'AtoresController@store'  ]);
-            Route::get ('destroy',      ['as' => 'atores.destroy',  'uses' => 'AtoresController@destroy']);
-            Route::get ('edit',         ['as' => 'atores.edit',     'uses' => 'AtoresController@edit'   ]);
-            Route::put ('{id}/update',  ['as' => 'atores.update',   'uses' => 'AtoresController@update' ]);
-        });
-
-        Route::group(['prefix'=>'nacionalidades', 'where'=>['id'=>'[0-9]+']], function () {
-            Route::any ('',             ['as' => 'nacionalidades',          'uses' => 'NacionalidadesController@index'  ]);
-            Route::get ('create',       ['as' => 'nacionalidades.create',   'uses' => 'NacionalidadesController@create' ]);
-            Route::post('store',        ['as' => 'nacionalidades.store',    'uses' => 'NacionalidadesController@store'  ]);
-            Route::get ('destroy',      ['as' => 'nacionalidades.destroy',  'uses' => 'NacionalidadesController@destroy']);
-            Route::get ('edit',         ['as' => 'nacionalidades.edit',     'uses' => 'NacionalidadesController@edit'   ]);
-            Route::put ('{id}/update',  ['as' => 'nacionalidades.update',   'uses' => 'NacionalidadesController@update' ]);
-        });
-
-        Route::group(['prefix'=>'filmes', 'where'=>['id'=>'[0-9]+']], function () {
-            Route::get ('',             ['as' => 'filmes',          'uses' => 'FilmesController@index'  ]);
-            Route::get ('create',       ['as' => 'filmes.create',   'uses' => 'FilmesController@create' ]);
-            Route::post('store',        ['as' => 'filmes.store',    'uses' => 'FilmesController@store'  ]);
-        });
-
         Route::group(['prefix'=>'pedidos', 'where'=>['idPedido'=>'[0-9]+']], function () {
             Route::any ('',             ['as' => 'pedidos',          'uses' => 'PedidosController@index'  ]);
             Route::get ('create',       ['as' => 'pedidos.create',   'uses' => 'PedidosController@create' ]);

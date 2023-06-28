@@ -29,26 +29,40 @@ class PedidosController extends Controller{
     }
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'cliente_idCliente' => 'required',
-            'produto_idProduto' => 'required',
-            'qtdPedido' => 'required|numeric|min:1',
-        ]);
+{
+    $validatedData = $request->validate([
+        'cliente_id' => 'required',
+        'dataPedido' => 'required|date',
+        'produtos' => 'required|array',
+        'qtdPedido' => 'required|array',
+        'valorTotal' => 'required|numeric',
+    ]);
 
-        $produto = Produto::find($request->input('produto_idProduto'));
-        $qtdPedido = $request->input('qtdPedido');
-        $valorTotal = $produto->valor * $qtdPedido;
+    $pedido = new Pedido();
+    $pedido->idPedido = $this->generateUniquePedidoId(); // Implemente a lógica para gerar um ID único para o pedido
+    $pedido->dataPedido = $validatedData['dataPedido'];
+    $pedido->fk_Clientes_idCliente = $validatedData['cliente_id'];
+    $pedido->save();
 
-        $pedido = new Pedido();
-        $pedido->cliente_idCliente = $request->input('cliente_idCliente');
-        $pedido->produto_idProduto = $request->input('produto_idProduto');
-        $pedido->qtdPedido = $qtdPedido;
-        $pedido->valorTotal = $valorTotal;
-        $pedido->save();
+    $produtos = $validatedData['produtos'];
+    $qtdPedidos = $validatedData['qtdPedido'];
 
-        return redirect()->route('pedidos.index')->with('success', 'Pedido criado com sucesso!');
+    for ($i = 0; $i < count($produtos); $i++) {
+        $pedidoProduto = new PedidoProduto();
+        $pedidoProduto->fk_Produtos_idProduto = $produtos[$i];
+        $pedidoProduto->fk_Pedidos_idPedido = $pedido->idPedido;
+        $pedidoProduto->qtdPedido = $qtdPedidos[$i];
+        $pedidoProduto->save();
     }
+
+    return redirect()->route('pedidos.index')->with('success', 'Pedido criado com sucesso!');
+}
+
+private function generateUniquePedidoId()
+{
+    // Implemente a lógica para gerar um ID único para o pedido, por exemplo, usando um timestamp ou um algoritmo personalizado
+}
+
 
     public function show($idPedido){
         $pedido = Pedido::findOrFail($idPedido);
@@ -60,8 +74,8 @@ class PedidosController extends Controller{
         return view('pedidos.edit', compact('pedido'));
     }
 
-    public function update(Request $request, $id){
-        $pedido = Pedido::findOrFail($id);
+    public function update(Request $request, $idPedido){
+        $pedido = Pedido::findOrFail($idPedido);
         $pedido->valorTotal = $request->input('valorTotal');
         $pedido->cliente_id = $request->input('fk_cliente_docCliente');
         $pedido->vendedor_id = $request->input('fk_vendedor_docVendedor');

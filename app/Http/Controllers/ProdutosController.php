@@ -51,7 +51,7 @@ class ProdutosController extends Controller
             $ret = array('status'=>500, 'msg'=>$e->getMessage());
         }
 
-        return $ret;
+        return redirect()->route('produtos');
 
     }
 
